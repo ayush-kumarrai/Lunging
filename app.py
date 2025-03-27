@@ -5,17 +5,15 @@ import tensorflow as tf
 import google.generativeai as genai
 
 genai.configure(
-    api_key="AIzaSyDQQPsaUpx699ISwXR9zEn9etTvOWgKyY8"
+    api_key="" #API KEY
 )
 
 model_gemini = genai.GenerativeModel('gemini-2.0-flash')
 
-# Load cancer prediction model
 model = tf.keras.models.load_model('lung_cancer_model.h5')
 
 class_labels = ['Benign', 'Malignant', 'Normal']
 
-# Medical keywords filter
 medical_keywords = {'cancer', 'medical', 'lung', 'treatment', 'symptoms', 
                    'diagnosis', 'benign', 'malignant', 'tumor', 'health',
                    'medicine', 'doctor', 'patient', 'hospital', 'disease', 'precaution'}
@@ -33,7 +31,6 @@ def is_medical_question(text):
 
 st.title("Lung Cancer Diagnosis & Medical Chat Assistant")
 
-# Image upload and prediction
 st.header("Lung Cancer Prediction")
 uploaded_file = st.file_uploader("Upload CT Scan Image", type=["jpg", "png", "jpeg"])
 if uploaded_file is not None:
@@ -45,7 +42,6 @@ if uploaded_file is not None:
     confidence = np.max(prediction)
     st.subheader(f"Prediction: {predicted_class}")
 
-# Medical Chat Assistant
 st.header("Medical Chat Assistant")
 user_input = st.text_input("Ask a medical question:")
 
